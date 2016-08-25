@@ -64,17 +64,20 @@ var outputFileName = "global.js"
 var filesInGlobalBuild = 
 [
     //IMPORT FILE
+    "/scripts/build/imports.js",
     //ENUMS
     //UTILS
     //GLOBAL VARABLES
     //CLASSES
+    "/scripts/classes/maze.js",
+    "/scripts/classes/solveLine.js",
 
     //END CLASSES
     //START EVENT HANDLERS
 
     //END EVENT HANDLERS
     //START ENGINE FILES
-
+    "/scripts/classes/engine/populationManager.js"
     //END ENGINE FILES
 ];
 ///////////////////////////////////////////

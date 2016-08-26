@@ -14,11 +14,12 @@ class Chromosome{
         this.geneArray = genes;
     }
 
-    GenerateGenes(){
-        for(i=0; i<this.geneCount; i++)
-        {
-            
-        }
+    CrossOver(otherChromosome){
+
+    }
+
+    Mutate(){
+        
     }
 
     GetGeneAtIndex(i){

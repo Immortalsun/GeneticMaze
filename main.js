@@ -65,18 +65,22 @@ var filesInGlobalBuild =
 [
     //IMPORT FILE
     "/scripts/build/imports.js",
+
     //ENUMS
     //UTILS
     //GLOBAL VARABLES
+    "/scripts/build/globalVariables.js",
     //CLASSES
     "/scripts/classes/maze.js",
     "/scripts/classes/solveLine.js",
-
     //END CLASSES
     //START EVENT HANDLERS
-
+    "/scripts/mazeCanvas.js",
+    "/scripts/events/controlButtonEvents.js",
     //END EVENT HANDLERS
     //START ENGINE FILES
+    "/scripts/classes/engine/chromosome.js",
+    "/scripts/classes/engine/individual.js",
     "/scripts/classes/engine/populationManager.js"
     //END ENGINE FILES
 ];

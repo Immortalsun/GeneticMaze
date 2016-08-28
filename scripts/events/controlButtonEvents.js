@@ -4,7 +4,7 @@ var _runSingleGenButton = document.getElementById("runGenerationButton");
 
 _generateMazeButton.onclick = function(e){
     var maze = BuildMaze(8,8);
-    DrawMaze(GenerateMazeText(maze));
+    DrawMaze(GenerateMazeText(maze),8,8);
 }
 
 _solveMazeButton.onclick = function(e){

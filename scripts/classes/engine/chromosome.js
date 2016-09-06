@@ -26,16 +26,16 @@ class Chromosome{
         
     }
 
-    GetGeneAtIndex(i){
-        if(i >= 0 && i< this.geneCount)
+    GetGeneAtIndex(idx){
+        if(idx >= 0 && idx< this.geneCount)
         {
-            return this.geneArray[i];
+            return this.geneArray[idx];
         }
         return undefined;
     }
 
     GetRandomGenes(geneConstraint){
-        for(i=0; i <this.geneCount; i++){
+        for(var i=0; i <this.geneCount; i++){
             this.geneArray[i] = Math.floor(Math.random() * geneConstraint);
         }
     }

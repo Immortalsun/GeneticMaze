@@ -25,14 +25,14 @@ function DrawMaze(maze){
     _drawContext.strokeStyle = "#800000"
     _drawContext.fillStyle = "#800000";
 
-    for(i=0; i<maze.length; i++){
+    for(var i=0; i<maze.length; i++){
         var mazeRow = maze[i];
 
         if(_mazeHeight == 0){
             _mazeHeight = maze.length * _blockHeight;
         }
 
-        for(j=0; j<mazeRow.length; j++){
+        for(var j=0; j<mazeRow.length; j++){
             mazeNode = mazeRow[j];
 
             if(_mazeWidth == 0){
@@ -82,14 +82,14 @@ function DrawMazeWithSolveLine(solveLine){
     _drawContext.strokeStyle = "#800000"
     _drawContext.fillStyle = "#800000";
 
-    for(i=0; i<maze.length; i++){
+    for(var i=0; i<maze.length; i++){
         var mazeRow = maze[i];
 
         if(_mazeHeight == 0){
             _mazeHeight = maze.length * _blockHeight;
         }
 
-        for(j=0; j<mazeRow.length; j++){
+        for(var j=0; j<mazeRow.length; j++){
             mazeNode = mazeRow[j];
 
             if(_mazeWidth == 0){

@@ -55,8 +55,9 @@ class PopulationManager{
     }
 
     GenerateInitialPopulation(){
-        for(i=0; i<this.populationCap; i++){
-            this.currentPopulation[i] = new Individual(30,"Gen"+this.genNum+":"+i,5)
+        for(var i=0; i<this.populationCap; i++){
+            var index = i;
+            this.currentPopulation[i] = new Individual(30,"Gen"+this.genNum+":"+index.toString(),5)
         }
     }
 
@@ -102,7 +103,7 @@ class PopulationManager{
             throw "Maze is undefined";
         }
 
-        for(i =0; i<this.populationCap; i++){
+        for(var i =0; i<this.populationCap; i++){
             this.TestIndividualFitness(this.currentPopulation[i]);
         }
     }
@@ -111,7 +112,7 @@ class PopulationManager{
         var maze = MazeObject;
         var currentNode = MazeObject[0][0];
         var cellIndex = [0,0];
-        for(i=0; i<individual.Chromosome.GeneArray.length; i++){
+        for(var i=0; i<individual.Chromosome.GeneArray.length; i++){
 
             var gene = individual.Chromosome.GetGeneAtIndex(i);
             switch(gene){
@@ -218,14 +219,14 @@ class PopulationManager{
     SelectIndividual(){
 
         var totalFitness = 0.0;
-        for(i = 0; i<this.populationCap; i++) {
+        for(var i = 0; i<this.populationCap; i++) {
             totalFitness += this.currentPopulation[i].FitnessScore;
         }
 
         var fitnessSlice = Math.random()* totalFitness;
 
         var indivFitness = 0.0;
-        for(j=0; j<this.populationCap; j++){
+        for(var j=0; j<this.populationCap; j++){
             var individual = this.currentPopulation[i];
             indivFitness += individual.FitnessScore;
             if(indivFitness >= fitnessSlice){

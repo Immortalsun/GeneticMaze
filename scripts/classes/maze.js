@@ -86,7 +86,7 @@ function BuildMazeBlocks(mazeText){
 	//line for the bottom edge
 	var bottomLine = "";
 
-	for(i=0; i< mazeText.length; i++){
+	for(var i=0; i< mazeText.length; i++){
 
 		//the top line should only be blank on the first iteration
 		if(topLine == ""){
@@ -179,9 +179,9 @@ function SetUpMazeSiblings(){
 		return;
 	}
 
-	for(i = 0; i<_internalMaze.length; i++){
+	for(var i = 0; i<_internalMaze.length; i++){
 		var mazeRow = _internalMaze[i];
-		for(j=0; j<mazeRow.length; j++){
+		for(var j=0; j<mazeRow.length; j++){
 			var mazeNode = mazeRow[j];
 
 			if(j > 0){

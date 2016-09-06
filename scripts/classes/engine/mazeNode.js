@@ -5,12 +5,12 @@ class MazeNode{
         this.rightSib = undefined;
         this.topSib = undefined;
         this.bottomSib = undefined;
-        this.leftWallState = "0";
-        this.rightWallState = "0";
-        this.topWallState = "0";
-        this.bottomWallState="0";
-        this.isStartNode = false;
-        this.isEndNode = false;
+        this.leftWallState = false;
+        this.rightWallState = false;
+        this.topWallState = false;
+        this.bottomWallState = false;
+        this.isStart = false;
+        this.isEnd = false;
     }
 
     get LeftSibling(){
@@ -45,12 +45,12 @@ class MazeNode{
         return this.bottomWallState;
     }
 
-    get IsStartNode(){
-        return this.isStartNode;
+    get IsStart(){
+        return this.isStart;
     }
 
-    get IsEndNode(){
-        return this.isEndNode;
+    get IsEnd(){
+        return this.isEnd;
     }
 
     set LeftSibling(left){
@@ -69,12 +69,12 @@ class MazeNode{
         this.bottomSib = bot;
     }
 
-    set IsStartNode(start){
-        this.isStartNode = start;
+    set IsStart(start){
+        this.isStart = start;
     }
 
-    set IsEndNode(end){
-        this.isEndNode = end;
+    set IsEnd(end){
+        this.isEnd = end;
     }
 
     set TopWallState(topState){

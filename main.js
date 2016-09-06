@@ -81,6 +81,7 @@ var filesInGlobalBuild =
     //START ENGINE FILES
     "/scripts/classes/engine/chromosome.js",
     "/scripts/classes/engine/individual.js",
+    "/scripts/classes/engine/mazeNode.js",
     "/scripts/classes/engine/populationManager.js"
     //END ENGINE FILES
 ];

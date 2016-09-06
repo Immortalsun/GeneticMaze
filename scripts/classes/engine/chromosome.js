@@ -10,6 +10,10 @@ class Chromosome{
         return this.geneCount;
     }
 
+    get GeneArray(){
+        return this.geneArray;
+    }
+
     set GeneArray(genes){
         this.geneArray = genes;
     }

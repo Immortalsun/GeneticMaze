@@ -7,7 +7,7 @@ class PopulationManager{
         this.genNum = 0;
         this.solutionFound = false;
         this.mutationRate = .001;
-        this.populationCap = 25;
+        this.populationCap = 55;
         this.currentIndividual = undefined;
         this.currentIndividualIndex = 0;
         this.solutionIndividual = undefined;
@@ -57,7 +57,7 @@ class PopulationManager{
     GenerateInitialPopulation(){
         for(var i=0; i<this.populationCap; i++){
             var index = i;
-            this.currentPopulation[i] = new Individual(30,"Gen"+this.genNum+":"+index.toString(),5)
+            this.currentPopulation[i] = new Individual(50,"Gen"+this.genNum+":"+index.toString(),5)
         }
     }
 
@@ -149,7 +149,7 @@ class PopulationManager{
                         if(!currentNode.LeftWallState && !currentNode.LeftSibling.RightWallState){
                             currentNode = currentNode.LeftSibling;
                             cellIndex[1]--;
-                             individual.AddVisitedNode(currentNode);
+                            individual.AddVisitedNode(currentNode);
                         }
 
                         if(currentNode.IsEnd){

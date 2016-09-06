@@ -112,6 +112,7 @@ class PopulationManager{
         var maze = MazeObject;
         var currentNode = MazeObject[0][0];
         var cellIndex = [0,0];
+        individual.AddVisitedNode(currentNode);
         for(var i=0; i<individual.Chromosome.GeneArray.length; i++){
 
             var gene = individual.Chromosome.GetGeneAtIndex(i);
@@ -119,7 +120,7 @@ class PopulationManager{
                 case 0: //0 means NO MOVE, the individual stays at its current Node
                     break;
                 case 1: // 1 means MOVE UP, if the inidividual is at the start or there is a wall above it, nothing happens otherwise it moves to currentNode.TopSibling
-                        if(!currentNode.IsStart && !currentNode.TopWallState){
+                        if(!currentNode.IsStart && !currentNode.TopWallState && !currentNode.TopSibling.BottomWallState){
                             currentNode = currentNode.TopSibling;
                             cellIndex[0]--;
                             individual.AddVisitedNode(currentNode);
@@ -132,7 +133,7 @@ class PopulationManager{
                         }
                     break;
                 case 2: //2 means MOVE DOWN, if there is a wall below the individual, nothing happens, otherwise it moves to currentNode.BottomSibling
-                        if(!currentNode.BottomWallState){
+                        if(!currentNode.BottomWallState && !currentNode.BottomSibling.TopWallState){
                             currentNode = currentNode.BottomSibling;
                             cellIndex[0]++;
                              individual.AddVisitedNode(currentNode);
@@ -145,7 +146,7 @@ class PopulationManager{
                         }
                     break;
                 case 3: //3 means MOVE LEFT, if there is a wall to the left, nothing happens, otherwise it moves to currentNode.LeftSibilng
-                        if(!currentNode.LeftWallState){
+                        if(!currentNode.LeftWallState && !currentNode.LeftSibling.RightWallState){
                             currentNode = currentNode.LeftSibling;
                             cellIndex[1]--;
                              individual.AddVisitedNode(currentNode);
@@ -158,7 +159,7 @@ class PopulationManager{
                         }
                     break;
                 case 4: //4 means move RIGHT, if there is a wall to the right, nothing happens, otherwise it moves to currentNode.RightSibling
-                        if(!currentNode.RightWallState){
+                        if(!currentNode.RightWallState && !currentNode.RightSibling.LeftWallState){
                             currentNode = currentNode.RightSibling;
                             cellIndex[1]++;
                             individual.AddVisitedNode(currentNode);

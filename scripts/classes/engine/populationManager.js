@@ -69,8 +69,8 @@ class PopulationManager{
         this.currentIndividual = undefined;
         this.currentIndividualIndex = 0;
 
+        this.TestPopulation();
 
-        TestPopulation();
         if(!this.solutionFound){
             this.MatePopulation();
         }
@@ -102,9 +102,15 @@ class PopulationManager{
          if(MazeObject == undefined){
             throw "Maze is undefined";
         }
-
+        var currentFitness = 0;
         for(var i =0; i<this.populationCap; i++){
             this.TestIndividualFitness(this.currentPopulation[i]);
+            
+            if(this.currentPopulation[i].FitnessScore > currentFitness){
+                currentFitness = this.currentPopulation[i].FitnessScore;
+                this.currentIndividual = this.currentPopulation[i];
+                this.currentIndividualIndex = i;
+            }
         }
     }
 
@@ -190,7 +196,7 @@ class PopulationManager{
     MatePopulation(){
         this.genNum++;
 
-        while(newPopulation.length < populationCap){
+        while(this.newPopulation.length < this.populationCap){
 
             var individualA = this.SelectIndividual();
             var individualB = this.SelectIndividual();
@@ -205,7 +211,7 @@ class PopulationManager{
 
             this.Mate(individualA,individualB,shouldMutate,shouldCrossover);
 
-            if(newPopulation.length < populationCap){
+            if(this.newPopulation.length < this.populationCap){
                 individualA.Id = "Gen"+this.genNum+":"+newPopulation.length;
                 newPopulation.push(individualA);
                 individualB.Id = "Gen"+this.genNum+":"+newPopulation.length;
@@ -220,15 +226,15 @@ class PopulationManager{
     SelectIndividual(){
 
         var totalFitness = 0.0;
-        for(var i = 0; i<this.populationCap; i++) {
+        for(var i = 0; i<this.currentPopulation.length; i++) {
             totalFitness += this.currentPopulation[i].FitnessScore;
         }
 
         var fitnessSlice = Math.random()* totalFitness;
 
         var indivFitness = 0.0;
-        for(var j=0; j<this.populationCap; j++){
-            var individual = this.currentPopulation[i];
+        for(var j=0; j<this.currentPopulation.length; j++){
+            var individual = this.currentPopulation[j];
             indivFitness += individual.FitnessScore;
             if(indivFitness >= fitnessSlice){
                 this.currentPopulation.splice(j,1);

@@ -12,7 +12,16 @@ _solveMazeButton.onclick = function(e){
 }
 
 _runSingleGenButton.onclick = function(e){
-    
+    if(MazeObject == undefined || MazeObject.length == 0){
+        return;
+    }
+
+    if(PopManager == undefined){
+        PopManager = PopulationManager.BuildManager();
+    }
+
+    PopManager.RunGeneration();
+    DisplayIndividualInfo();
 }
 
 _runIndividualButton.onclick = function(e){

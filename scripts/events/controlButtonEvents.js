@@ -5,10 +5,22 @@ var _runIndividualButton = document.getElementById("runIndividualButton");
 _generateMazeButton.onclick = function(e){
     BuildMaze(8,8);
     DrawMaze(MazeObject);
+
+    if(PopManager != undefined){
+        PopManager.Reset();
+    }
 }
 
 _solveMazeButton.onclick = function(e){
+    if(MazeObject == undefined || MazeObject.length == 0){
+        return;
+    }
 
+    if(PopManager == undefined){
+        PopManager = PopulationManager.BuildManager();
+    }
+
+    PopManager.RunGenerationsUntilFound();
 }
 
 _runSingleGenButton.onclick = function(e){

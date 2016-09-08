@@ -20,8 +20,8 @@ class Chromosome{
 
     CrossOver(otherChromosome){
         var crossoverPoint = Math.floor(Math.random() * this.geneArray.length);
-        for(var geneIdx = crossoverPoint; geneIdx < crossoverPoint.length; geneIdx++){
-            var tempGene = this.GetGeneAtIndex(genIdx);
+        for(var geneIdx = crossoverPoint; geneIdx < this.geneArray.length; geneIdx++){
+            var tempGene = this.GetGeneAtIndex(geneIdx);
             this.geneArray[geneIdx] = otherChromosome.GetGeneAtIndex(geneIdx);
             otherChromosome.SetGeneAtIndex(geneIdx,tempGene);
         }

@@ -7,7 +7,7 @@ class PopulationManager{
         this.genNum = 0;
         this.solutionFound = false;
         this.mutationRate = .001;
-        this.populationCap = 55;
+        this.populationCap = 56;
         this.currentIndividual = undefined;
         this.currentIndividualIndex = 0;
         this.solutionIndividual = undefined;
@@ -54,6 +54,15 @@ class PopulationManager{
         this.populationCap = cap;
     }
 
+    Reset(){
+        this.currentPopulation = [];
+        this.newPopulation = [];
+        this.genNum = 0;
+        this.currentIndividual = undefined;
+        this.currentIndividualIndex = 0;
+        this.GenerateInitialPopulation();
+    }
+
     GenerateInitialPopulation(){
         for(var i=0; i<this.populationCap; i++){
             var index = i;
@@ -92,10 +101,14 @@ class PopulationManager{
          if(MazeObject == undefined){
             throw "Maze is undefined";
         }
-        while(!this.solutionFound){
-            RunGeneration();
-        }
 
+        this.RunGeneration();
+        DisplayIndividualInfo();
+        var timer = setTimeout(RunGenerationsUntilFound,2000);
+        if(this.solutionFound){
+            clearTimeout(timer);
+        }
+       
     }
 
     TestPopulation(){
@@ -212,10 +225,10 @@ class PopulationManager{
             this.Mate(individualA,individualB,shouldMutate,shouldCrossover);
 
             if(this.newPopulation.length < this.populationCap){
-                individualA.Id = "Gen"+this.genNum+":"+newPopulation.length;
-                newPopulation.push(individualA);
-                individualB.Id = "Gen"+this.genNum+":"+newPopulation.length;
-                newPopulation.push(individualB);
+                individualA.Id = "Gen"+this.genNum+":"+this.newPopulation.length;
+                this.newPopulation.push(individualA);
+                individualB.Id = "Gen"+this.genNum+":"+this.newPopulation.length;
+                this.newPopulation.push(individualB);
             }
         }
 

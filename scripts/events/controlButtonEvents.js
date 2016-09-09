@@ -20,7 +20,7 @@ _solveMazeButton.onclick = function(e){
         PopManager = PopulationManager.BuildManager();
     }
 
-    PopManager.RunGenerationsUntilFound();
+    PopManager.RunGenerationsAsync();
 }
 
 _runSingleGenButton.onclick = function(e){

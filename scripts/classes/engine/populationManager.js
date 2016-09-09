@@ -12,6 +12,7 @@ class PopulationManager{
         this.currentIndividualIndex = 0;
         this.solutionIndividual = undefined;
         this.GenerateInitialPopulation();
+        this.solutionThread = undefined;
     }
 
     static BuildManager(){
@@ -79,7 +80,7 @@ class PopulationManager{
         this.currentIndividualIndex = 0;
 
         this.TestPopulation();
-
+        DisplayIndividualInfo();
         if(!this.solutionFound){
             this.MatePopulation();
         }
@@ -102,13 +103,22 @@ class PopulationManager{
             throw "Maze is undefined";
         }
 
-        this.RunGeneration();
-        DisplayIndividualInfo();
-        var timer = setTimeout(RunGenerationsUntilFound,2000);
-        if(this.solutionFound){
-            clearTimeout(timer);
+        if(!this.solutionFound){
+            this.RunGeneration();
         }
-       
+        else{
+            clearInterval(this.solutionThread);
+        }
+    }
+
+    RunGenerationsAsync(){
+        if(MazeObject == undefined){
+            throw "Maze is undefined";
+        }
+
+        this.solutionThread = setInterval(function(){
+            PopManager.RunGenerationsUntilFound();
+        }, 250);
     }
 
     TestPopulation(){
@@ -139,7 +149,7 @@ class PopulationManager{
                 case 0: //0 means NO MOVE, the individual stays at its current Node
                     break;
                 case 1: // 1 means MOVE UP, if the inidividual is at the start or there is a wall above it, nothing happens otherwise it moves to currentNode.TopSibling
-                        if(!currentNode.IsStart && !currentNode.TopWallState && !currentNode.TopSibling.BottomWallState){
+                        if(!currentNode.IsStart && !currentNode.TopWallState && currentNode.TopSibling != undefined && !currentNode.TopSibling.BottomWallState){
                             currentNode = currentNode.TopSibling;
                             cellIndex[0]--;
                             individual.AddVisitedNode(currentNode);
@@ -152,7 +162,7 @@ class PopulationManager{
                         }
                     break;
                 case 2: //2 means MOVE DOWN, if there is a wall below the individual, nothing happens, otherwise it moves to currentNode.BottomSibling
-                        if(!currentNode.BottomWallState && !currentNode.BottomSibling.TopWallState){
+                        if(!currentNode.BottomWallState && currentNode.BottomSibling != undefined &&!currentNode.BottomSibling.TopWallState){
                             currentNode = currentNode.BottomSibling;
                             cellIndex[0]++;
                              individual.AddVisitedNode(currentNode);
@@ -165,7 +175,7 @@ class PopulationManager{
                         }
                     break;
                 case 3: //3 means MOVE LEFT, if there is a wall to the left, nothing happens, otherwise it moves to currentNode.LeftSibilng
-                        if(!currentNode.LeftWallState && !currentNode.LeftSibling.RightWallState){
+                        if(!currentNode.LeftWallState && currentNode.LeftSibling != undefined && !currentNode.LeftSibling.RightWallState){
                             currentNode = currentNode.LeftSibling;
                             cellIndex[1]--;
                             individual.AddVisitedNode(currentNode);
@@ -178,7 +188,7 @@ class PopulationManager{
                         }
                     break;
                 case 4: //4 means move RIGHT, if there is a wall to the right, nothing happens, otherwise it moves to currentNode.RightSibling
-                        if(!currentNode.RightWallState && !currentNode.RightSibling.LeftWallState){
+                        if(!currentNode.RightWallState && currentNode.RightSibling != undefined && !currentNode.RightSibling.LeftWallState){
                             currentNode = currentNode.RightSibling;
                             cellIndex[1]++;
                             individual.AddVisitedNode(currentNode);
@@ -226,8 +236,10 @@ class PopulationManager{
 
             if(this.newPopulation.length < this.populationCap){
                 individualA.Id = "Gen"+this.genNum+":"+this.newPopulation.length;
+                individualA.ResetSolveLine();
                 this.newPopulation.push(individualA);
                 individualB.Id = "Gen"+this.genNum+":"+this.newPopulation.length;
+                individualB.ResetSolveLine();
                 this.newPopulation.push(individualB);
             }
         }

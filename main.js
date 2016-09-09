@@ -65,9 +65,9 @@ var filesInGlobalBuild =
 [
     //IMPORT FILE
     "/scripts/build/imports.js",
-
     //ENUMS
     //UTILS
+    "/scripts/utils.js",
     //GLOBAL VARABLES
     "/scripts/build/globalVariables.js",
     //CLASSES

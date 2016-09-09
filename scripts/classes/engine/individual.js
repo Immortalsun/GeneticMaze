@@ -39,11 +39,16 @@ class Individual{
         this.fitnessScore = score;
     }
 
- AddVisitedNode(node){
-        if(this.solveLine == undefined){
-            this.solveLine = new SolveLine();
-        }
-        
-        this.solveLine.AddNodeToVisited(node);
+    ResetSolveLine()
+    {
+        this.solveLine = new SolveLine();
     }
+
+    AddVisitedNode(node){
+            if(this.solveLine == undefined){
+                this.solveLine = new SolveLine();
+            }
+            
+            this.solveLine.AddNodeToVisited(node);
+        }
 }

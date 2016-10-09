@@ -11,6 +11,11 @@ class MazeNode{
         this.bottomWallState = false;
         this.isStart = false;
         this.isEnd = false;
+        this.nodeId = "n_"+Math.floor(Math.random()*50)+1;
+    }
+
+    get NodeId(){
+        return this.nodeId;
     }
 
     get LeftSibling(){
@@ -93,6 +98,9 @@ class MazeNode{
         this.rightWallState = rightState;
     }
 
+    Equals(otherNode){
+       return otherNode.NodeId == this.NodeId;
+    }
 
 
 }

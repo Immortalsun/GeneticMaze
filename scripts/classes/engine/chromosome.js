@@ -63,7 +63,7 @@ class Chromosome{
 
     GetRandomGenes(geneConstraint){
         for(var i=0; i <this.geneCount; i++){
-            this.geneArray[i] = Math.floor(Math.random() * geneConstraint);
+            this.geneArray[i] = Math.floor(Math.random() * geneConstraint)+1;
         }
     }
 

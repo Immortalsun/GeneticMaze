@@ -3,12 +3,13 @@ var _solveMazeButton = document.getElementById("solveMazeButton");
 var _runSingleGenButton = document.getElementById("runGenerationButton");
 var _runIndividualButton = document.getElementById("runIndividualButton");
 _generateMazeButton.onclick = function(e){
-    BuildMaze(8,8);
-    DrawMaze(MazeObject);
 
-    if(PopManager != undefined){
+     if(PopManager != undefined){
         PopManager.Reset();
     }
+
+    BuildMaze(8,8);
+    DrawMaze(MazeObject);
 }
 
 _solveMazeButton.onclick = function(e){

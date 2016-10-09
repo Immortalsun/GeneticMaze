@@ -151,6 +151,9 @@ function DisplayIndividualInfo(){
     textPoint[1] += 18;
     _drawContext.fillText("Individual Id: "+individual.Id, textPoint[0], textPoint[1]);
     textPoint[1] += 18;
-    _drawContext.fillText("Fitness Score: "+individual.FitnessScore, textPoint[0], textPoint[1]);    
+    _drawContext.fillText("Backtracks: "+individual.SolveLine.BackTracks, textPoint[0], textPoint[1]);
+    textPoint[1] += 18;
+    _drawContext.fillText("Fitness Score: "+individual.FitnessScore, textPoint[0], textPoint[1]);
+        
 }
 

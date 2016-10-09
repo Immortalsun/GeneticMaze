@@ -3,11 +3,13 @@ class PopulationManager{
     constructor(){
         this.currentPopulation = [];
         this.newPopulation = [];
-        this.crossoverRate = .7;
+        this.crossoverRate = .9;
         this.genNum = 0;
         this.solutionFound = false;
         this.mutationRate = .001;
         this.populationCap = 56;
+        this.distToEndWeight = .6;
+        this.backTrackWeight = .4;
         this.currentIndividual = undefined;
         this.currentIndividualIndex = 0;
         this.solutionIndividual = undefined;
@@ -62,12 +64,16 @@ class PopulationManager{
         this.currentIndividual = undefined;
         this.currentIndividualIndex = 0;
         this.GenerateInitialPopulation();
+        if(!this.solutionThread == undefined){
+            clearInterval(this.solutionThread);
+            this.solutionThread = undefined;
+        }
     }
 
     GenerateInitialPopulation(){
         for(var i=0; i<this.populationCap; i++){
             var index = i;
-            this.currentPopulation[i] = new Individual(50,"Gen"+this.genNum+":"+index.toString(),5)
+            this.currentPopulation[i] = new Individual(50,"Gen"+this.genNum+":"+index.toString(),4)
         }
     }
 
@@ -118,7 +124,7 @@ class PopulationManager{
 
         this.solutionThread = setInterval(function(){
             PopManager.RunGenerationsUntilFound();
-        }, 250);
+        }, 50);
     }
 
     TestPopulation(){
@@ -146,8 +152,6 @@ class PopulationManager{
 
             var gene = individual.Chromosome.GetGeneAtIndex(i);
             switch(gene){
-                case 0: //0 means NO MOVE, the individual stays at its current Node
-                    break;
                 case 1: // 1 means MOVE UP, if the inidividual is at the start or there is a wall above it, nothing happens otherwise it moves to currentNode.TopSibling
                         if(!currentNode.IsStart && !currentNode.TopWallState && currentNode.TopSibling != undefined && !currentNode.TopSibling.BottomWallState){
                             currentNode = currentNode.TopSibling;
@@ -205,12 +209,14 @@ class PopulationManager{
 
         var endRow = MazeObject[MazeObject.length-1];
         var endNode = endRow[endRow.length-1];
-        var maxScore = MazeObject.length - 1 + endRow.length - 1;
+        var maxDistance = MazeObject.length - 1 + endRow.length - 1;
         if(endNode.IsEnd){
             var fitnessX = cellIndex[0];
             var fitnessY = cellIndex[1];
-            var totalFitness = fitnessX + fitnessY;
-            individual.FitnessScore = totalFitness/maxScore;
+            var indivDistance = fitnessX+fitnessY;
+            var weightedDistScore = (indivDistance/maxDistance) * this.distToEndWeight; 
+            var weightedBackTrackScore = (1-(individual.SolveLine.BackTracks/individual.Chromosome.GeneCount)) * this.backTrackWeight;
+            individual.FitnessScore = weightedDistScore + weightedBackTrackScore;
         }
 
     }

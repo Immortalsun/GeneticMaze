@@ -25,6 +25,10 @@ class PopulationManager{
         return this.crossoverRate;
     }
 
+    get SolutionThread(){
+        return this.solutionThread;
+    }
+
     get MutationRate(){
         return this.mutationRate;
     }
@@ -68,6 +72,7 @@ class PopulationManager{
             clearInterval(this.solutionThread);
             this.solutionThread = undefined;
         }
+        clearInterval();
     }
 
     GenerateInitialPopulation(){
@@ -114,6 +119,7 @@ class PopulationManager{
         }
         else{
             clearInterval(this.solutionThread);
+            clearInterval();
         }
     }
 
@@ -254,24 +260,42 @@ class PopulationManager{
         this.newPopulation = [];
     }
 
-    SelectIndividual(){
-
-        var totalFitness = 0.0;
-        for(var i = 0; i<this.currentPopulation.length; i++) {
-            totalFitness += this.currentPopulation[i].FitnessScore;
-        }
-
-        var fitnessSlice = Math.random()* totalFitness;
-
-        var indivFitness = 0.0;
-        for(var j=0; j<this.currentPopulation.length; j++){
-            var individual = this.currentPopulation[j];
-            indivFitness += individual.FitnessScore;
-            if(indivFitness >= fitnessSlice){
-                this.currentPopulation.splice(j,1);
-                return individual;
+    SelectIndividual(){        
+        var currIndividual = undefined;
+        var indivIndex = 0;
+        for(var i=0; i<this.currentPopulation.length; i++){
+            if(currIndividual == undefined){
+                currIndividual = this.currentPopulation[i];
+            }
+            else{
+             currIndividual = this.GetIndividualWithGreaterFitness(currIndividual, this.currentPopulation[i]);
+             indivIndex = this.currentPopulation.indexOf(currIndividual);
             }
         }
+
+        this.currentPopulation.splice(indivIndex,1);
+        return currIndividual;
+    }
+
+    GetIndividualWithGreaterFitness(individualA, individualB){
+        if(individualA == undefined && individualB != undefined){
+            return individualB;
+        }
+        else if(individualB == undefined && individualA!= undefined){
+            return individualA;
+        }
+        else if(individualA == undefined && individualB == undefined){
+            throw "Cannot determine fitness if both individuals are undefined"
+        }
+
+        if(individualA.FitnessScore > individualB.FitnessScore){
+            return individualA;
+        }
+        else if(individualB.FitnessScore > individualA.FitnessScore){
+            return individualB;
+        }
+
+        return individualA;
     }
 
     Mate(individualA, individualB, shouldMutate, shouldCrossover){

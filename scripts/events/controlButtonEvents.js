@@ -6,6 +6,7 @@ _generateMazeButton.onclick = function(e){
 
      if(PopManager != undefined){
         PopManager.Reset();
+        PopManager = PopulationManager.BuildManager();
     }
 
     BuildMaze(8,8);

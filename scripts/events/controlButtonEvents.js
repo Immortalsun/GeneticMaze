@@ -35,7 +35,6 @@ _runSingleGenButton.onclick = function(e){
     }
 
     PopManager.RunGeneration();
-    DisplayIndividualInfo();
 }
 
 _runIndividualButton.onclick = function(e){
